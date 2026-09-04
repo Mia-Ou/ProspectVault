@@ -1,0 +1,104 @@
+{
+  "version": "report-v1-20260902",
+  "description": "秋招决策辅助报告 - 带来源标注",
+  "src_types": {
+    "JD": "招聘 JD 原文",
+    "官网": "公司官网/招聘官网",
+    "求职者": "脉脉/牛客/看准/小红书等真实求职者",
+    "工商": "天眼查/企查查等工商信息",
+    "简历": "用户简历提供的信息",
+    "面试记录": "用户提供的面试记录/微信截图",
+    "搜索": "WebSearch 搜索结果",
+    "WebFetch": "WebFetch 网页抓取内容",
+    "推断": "基于以上信息的合理推断（必须写明推理链）"
+  },
+  "sections": [
+    {
+      "id": "company_profile",
+      "title": "公司画像",
+      "fields": [
+        {"name": "定性", "desc": "VC/FA/卖方/买方/其他，一句话定性", "src": true},
+        {"name": "业务模式", "desc": "怎么赚钱的，核心客户是谁", "src": true},
+        {"name": "行业地位", "desc": "赛道排名、管理规模、市场份额", "src": true},
+        {"name": "融资/股东", "desc": "股东背景、最新融资、LP 构成", "src": true}
+      ]
+    },
+    {
+      "id": "position_analysis",
+      "title": "岗位深度拆解",
+      "fields": [
+        {"name": "真实工作内容", "desc": "一天/一周在干什么（不是 JD 抄一遍）", "src": true},
+        {"name": "能力成长", "desc": "1-2 年后能积累什么能力", "src": true},
+        {"name": "跳槽路径", "desc": "下一站能去哪", "src": true},
+        {"name": "JD 要求逐条对照", "desc": "学历/专业/技能/经验，哪些满足哪些缺", "src": ["JD", "简历"]}
+      ]
+    },
+    {
+      "id": "compensation",
+      "title": "薪资与代价",
+      "fields": [
+        {"name": "薪资结构", "desc": "base+绩效+年终+福利", "src": true},
+        {"name": "性价比", "desc": "时薪、WLB、隐性成本", "src": true},
+        {"name": "转正率", "desc": "实习转正概率（如有数据）", "src": true}
+      ]
+    },
+    {
+      "id": "match_analysis",
+      "title": "匹配度分析",
+      "fields": [
+        {"name": "硬匹配", "desc": "学历/专业/技能/JD 要求逐条对照", "src": ["JD", "简历"]},
+        {"name": "软匹配", "desc": "赛道兴趣/工作风格/价值观", "src": ["简历", "推断"]},
+        {"name": "面试可行性", "desc": "能过吗？难点在哪？怎么准备？", "src": ["面试记录", "求职者", "推断"]}
+      ]
+    },
+    {
+      "id": "risk_radar",
+      "title": "风险雷达（5 维评分）",
+      "fields": [
+        {"name": "薪资确定性", "score": "0-100", "src": true},
+        {"name": "转正概率", "score": "0-100", "src": true},
+        {"name": "WLB", "score": "0-100", "src": true},
+        {"name": "行业前景", "score": "0-100", "src": true},
+        {"name": "公司稳定性", "score": "0-100", "src": true}
+      ]
+    },
+    {
+      "id": "interview_info",
+      "title": "面试官信息",
+      "fields": [
+        {"name": "一面", "desc": "谁/什么风格/怎么准备", "src": ["面试记录", "求职者"]},
+        {"name": "二面", "desc": "谁/什么风格/怎么准备", "src": ["面试记录", "求职者"]},
+        {"name": "终面", "desc": "谁/什么风格/怎么准备", "src": ["面试记录", "求职者"]}
+      ]
+    },
+    {
+      "id": "timeline",
+      "title": "秋招时间线",
+      "fields": [
+        {"name": "网申截止", "src": ["JD", "官网"]},
+        {"name": "笔试/面试节奏", "src": ["官网", "求职者"]},
+        {"name": "当前进度", "desc": "我已经到哪了", "src": ["面试记录"]},
+        {"name": "剩余关键节点", "src": ["推断"]}
+      ]
+    },
+    {
+      "id": "competitor_compare",
+      "title": "池内对标",
+      "fields": [
+        {"name": "最接近的 2-3 个机会", "desc": "横向对比", "src": ["推断"]},
+        {"name": "优先级", "desc": "保底/平配/冲刺", "src": ["推断"]},
+        {"name": "机会成本", "desc": "投/接这个 → 放弃什么", "src": ["推断"]}
+      ]
+    },
+    {
+      "id": "decision",
+      "title": "决策建议",
+      "fields": [
+        {"name": "投不投", "desc": "明确建议", "src": ["推断"]},
+        {"name": "优先级", "desc": "在所有机会中排第几", "src": ["推断"]},
+        {"name": "面试策略", "desc": "重点准备什么", "src": ["推断"]},
+        {"name": "offer 选择", "desc": "如果拿到 offer，接不接", "src": ["推断"]}
+      ]
+    }
+  ]
+}

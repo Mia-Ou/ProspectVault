@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "created": "2026-09-04",
+    "dataGen": "example-20260904",
+    "note": "示例数据结构，全部内容为虚构。复制为 jobs.json 后改成你自己的数据，再执行 python _app/build.py"
+  },
+  "resume": {
+    "headline": "一句话定位，例如：金融硕士 · 2段投资实习 · 目标硬科技股权投资",
+    "summary": "150 字以内的背景总览",
+    "raw": "简历原文（可选）。也可以用页面上的「📤 导入资料」上传 PDF/Word 自动填充",
+    "profile": {
+      "education": [{ "school": "学校", "degree": "硕士", "major": "专业", "years": "2025-2028" }],
+      "internships": [{ "org": "机构", "role": "岗位", "period": "2026.03-2026.09", "bullets": ["做了什么"] }],
+      "skills": ["技能关键词"],
+      "highlights": ["最有竞争力的点"],
+      "gaps": ["相对顶尖候选人的短板"],
+      "level": "市场层次定位",
+      "targetRoles": ["适合投递的方向"]
+    }
+  },
+  "records": [
+    {
+      "id": "job_example_001",
+      "company": "示例·星河创投",
+      "industry": "PEVC",
+      "location": "上海",
+      "link": "https://example.com/job/1",
+      "priority": "中",
+      "status": "面试",
+      "applied": true,
+      "position": "投资分析师",
+      "positions": [
+        {
+          "pid": "job_example_001#投资分析师",
+          "title": "投资分析师",
+          "dept": "投资部",
+          "location": "上海",
+          "salary": "面议",
+          "edu": "硕士",
+          "match": 82,
+          "priority": "中",
+          "status": "面试",
+          "applied": true,
+          "deadline": "2026-10-31",
+          "applyDate": "2026-09-01"
+        }
+      ],
+      "interviewStages": [
+        {
+          "round": "一面",
+          "date": "2026-09-10",
+          "result": "通过",
+          "score": 80,
+          "notes": "问了产业链研究方法、过往项目",
+          "analysis": "准备充分，需补强财务建模"
+        }
+      ],
+      "research": {
+        "competitionAnalysis": {
+          "score": 55,
+          "label": "冲一冲",
+          "reason": "硬科技研究经历高度匹配，但缺少头部机构背书",
+          "yourStrengths": ["产业链研究扎实", "有完整项目经历", "Python 数据处理"],
+          "gapToBeat": ["院校层次", "头部机构实习"],
+          "companyTier": "中型 VC",
+          "hireBar": "985 硕士 + 至少一段头部机构实习",
+          "advice": "重点准备行业研究报告，主动约校友内推",
+          "src": "AI（依据简历与 JD 推断）"
+        },
+        "report": {}
+      },
+      "personalNotes": "备注：内推人联系方式、投递渠道等"
+    }
+  ],
+  "discoveredJobs": [],
+  "deletedIds": []
+}
