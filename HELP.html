@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秋招工作台 · 使用帮助</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;background:#f8fafc;color:#1e293b;line-height:1.75;font-size:15px}
+.wrap{max-width:760px;margin:0 auto;padding:32px 24px 80px}
+h1{font-size:28px;font-weight:700;margin-bottom:8px;color:#0f172a}
+h2{font-size:20px;font-weight:700;margin:36px 0 14px;color:#1e40af;border-bottom:2px solid #dbeafe;padding-bottom:6px}
+h3{font-size:16px;font-weight:600;margin:20px 0 8px;color:#334155}
+p{margin:8px 0;color:#475569}
+.subtitle{font-size:15px;color:#64748b;margin-bottom:28px}
+.tag{display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px;margin-right:6px}
+.highlight{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border:1px solid #bfdbfe;border-radius:10px;padding:16px 20px;margin:14px 0}
+.highlight b{color:#1d4ed8}
+.warn{background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;margin:14px 0;color:#92400e;font-size:14px}
+.step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.step .num{flex-shrink:0;width:28px;height:28px;background:#2563eb;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.step .txt{padding-top:3px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th{background:#f1f5f9;text-align:left;padding:10px 12px;font-weight:600;color:#334155;border-bottom:2px solid #e2e8f0}
+td{padding:9px 12px;border-bottom:1px solid #f1f5f9;color:#475569}
+tr:hover td{background:#f8fafc}
+.layout-box{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px;padding:18px 22px;margin:14px 0;font-family:"Courier New",monospace;font-size:13px;line-height:1.8;color:#334155;white-space:pre;overflow-x:auto}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;margin-right:4px}
+.badge.green{background:#dcfce7;color:#166534}
+.badge.yellow{background:#fef9c3;color:#854d0e}
+.badge.red{background:#fee2e2;color:#991b1b}
+kbd{background:#f1f5f9;border:1px solid #cbd5e1;border-radius:4px;padding:1px 6px;font-size:12px;font-family:monospace;color:#334155}
+.divider{border:none;border-top:1px solid #e2e8f0;margin:32px 0}
+.footer{margin-top:40px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:13px;color:#94a3b8;text-align:center}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+ul{padding-left:22px;margin:8px 0}
+li{margin:4px 0;color:#475569}
+.quick-start{background:#1d4ed8;color:#fff;border-radius:12px;padding:22px 26px;margin:20px 0}
+.quick-start h3{color:#fff;margin:0 0 10px;font-size:17px}
+.quick-start .qs-steps{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.quick-start .qs-step{flex:1;min-width:160px;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px}
+.quick-start .qs-step .qs-num{font-size:22px;font-weight:700;opacity:.7}
+.quick-start .qs-step .qs-txt{font-size:13px;margin-top:4px;opacity:.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>📋 秋招工作台</h1>
+<p class="subtitle">一个文件管完秋招。投了哪些、到哪一步了、哪家有戏——全在这里。</p>
+
+<div class="quick-start">
+<h3>⚡ 30 秒上手</h3>
+<div class="qs-steps">
+<div class="qs-step"><div class="qs-num">①</div><div class="qs-txt">下载 <b>index.html</b></div></div>
+<div class="qs-step"><div class="qs-num">②</div><div class="qs-txt">双击打开</div></div>
+<div class="qs-step"><div class="qs-num">③</div><div class="qs-txt">上传简历 → 完事</div></div>
+</div>
+<p style="margin-top:14px;opacity:.85;font-size:13px">不需要安装任何东西，不需要注册账号，断网也能用。</p>
+</div>
+
+<hr class="divider">
+
+<h2>界面长什么样</h2>
+<p>打开后左边是导航栏，右边是内容区：</p>
+<div class="layout-box">┌──────────┬─────────────────────────────┐
+│  📋 秋招  │                             │
+│  工作台   │  右侧显示你当前选中的页面    │
+│          │                             │
+│  📊 概览  │  · KPI 数字（共投几家、      │
+│   总表   │    几轮面试、到期提醒…）     │
+│  📌 看板  │                             │
+│   研究   │  · 快捷操作入口              │
+│   发现   │                             │
+│          │                             │
+│  ──────  │                             │
+│  📤 导入  │                             │
+│  📄 简历  │                             │
+│  🤖 AI   │                             │
+│  ☁️ 备份  │                             │
+│  ＋ 新增  │                             │
+└──────────┴─────────────────────────────┘</div>
+
+<hr class="divider">
+
+<h2>第一次打开</h2>
+
+<div class="step"><div class="num">1</div><div class="txt">点左侧 <b>📤 导入资料</b>，上传你的简历（PDF / Word / TXT 都行）</div></div>
+<div class="step"><div class="num">2</div><div class="txt">点 <b>＋ 新增岗位</b>，把招聘 JD 粘贴进去，填好公司和岗位</div></div>
+<div class="step"><div class="num">3</div><div class="txt">重复步骤 2，把所有目标岗位加进去</div></div>
+
+<h3>每天打开</h3>
+<ul>
+<li><b>概览页</b> → 看今天有什么到期、哪些该推进</li>
+<li><b>投递总表</b> → 更新状态（网申中 → 笔试 → 面试 → Offer）</li>
+<li><b>流程看板</b> → 拖拽卡片或点箭头推进</li>
+<li>面试完 → 点进公司研究页，在「面试记录」里写复盘</li>
+</ul>
+
+<hr class="divider">
+
+<h2>🚀 快捷导入岗位（Bookmarklet）</h2>
+<p><b>从招聘网站一键抓取 JD，不用再手动复制粘贴。</b></p>
+
+<h3>第一步：安装到书签栏（只需一次）</h3>
+
+<div class="step"><div class="num">1</div><div class="txt">按 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> 显示浏览器书签栏</div></div>
+<div class="step"><div class="num">2</div><div class="txt">打开工作台 → 点左侧 <b>📤 导入资料</b> → 切到「招聘信息」标签</div></div>
+<div class="step"><div class="num">3</div><div class="txt">看到蓝色区域里的 <b>「📋 抓JD」</b> 按钮 → <b>按住它拖到书签栏</b>，松手</div></div>
+<div class="step"><div class="num">4</div><div class="txt">完成！书签栏多了一个叫"📋 抓JD"的书签</div></div>
+
+<h3>第二步：以后每次添加岗位</h3>
+
+<div class="highlight">
+<div class="step"><div class="num">①</div><div class="txt">在招聘网站（Boss直聘/拉勾/猎聘/公司官网等）打开岗位详情页</div></div>
+<div class="step"><div class="num">②</div><div class="txt">点书签栏的 <b>「📋 抓JD」</b></div></div>
+<div class="step"><div class="num">③</div><div class="txt">页面弹出"✅ 已复制 JD 到剪贴板"</div></div>
+<div class="step"><div class="num">④</div><div class="txt">切回工作台 → 文本框里 <kbd>Ctrl</kbd>+<kbd>V</kbd> → 点「🤖 AI 智能解析」</div></div>
+</div>
+
+<div class="warn">⚠️ 支持大多数招聘网站，但部分网站（如需登录的）可能无法抓取。失败时直接复制页面文字粘贴即可。</div>
+
+<hr class="divider">
+
+<h2>五个页面干什么的</h2>
+
+<table>
+<tr><th>页面</th><th>看什么</th><th>怎么用</th></tr>
+<tr><td><b>概览</b></td><td>全局数据</td><td>大数、到期提醒、快捷入口</td></tr>
+<tr><td><b>投递总表</b></td><td>一个岗位一行</td><td>搜索、筛选、编辑、导出 CSV</td></tr>
+<tr><td><b>流程看板</b></td><td>一个岗位一张卡片</td><td>按阶段看进度，拖拽推进</td></tr>
+<tr><td><b>公司研究</b></td><td>一家公司一份</td><td>业务分析 + 面试记录 + <b>拿 offer 可能性</b></td></tr>
+<tr><td><b>发现</b></td><td>AI 推荐</td><td>AI 联网搜索的高匹配岗位</td></tr>
+</table>
+
+<p style="font-size:13px;color:#64748b;margin-top:6px">💡 一家公司投了 3 个岗位 → 总表/看板里出现 3 行，研究页只有 1 份。</p>
+
+<hr class="divider">
+
+<h2>🎯 拿 offer 可能性</h2>
+<p>每家公司旁边会显示一个百分比和标签：</p>
+
+<table>
+<tr><th>标签</th><th>含义</th><th>建议</th></tr>
+<tr><td><span class="badge green">🟢 有希望（≥40%）</span></td><td>你的背景和公司门槛较匹配</td><td>重点投入，好好准备</td></tr>
+<tr><td><span class="badge yellow">🟡 冲一冲（20-39%）</span></td><td>有机会但差距存在</td><td>可以投，但别只押这一家</td></tr>
+<tr><td><span class="badge red">🔴 困难（＜20%）</span></td><td>院校/实习背景低于往年录用者</td><td>投了不亏，但别抱太大期望</td></tr>
+</table>
+
+<p>评估基于你的简历背景 + 公司行业地位 + 岗位匹配度综合计算。<b>点进去可以看到详细分析</b>（你的优势、差距在哪）。</p>
+
+<hr class="divider">
+
+<h2>🤖 AI 功能（可选）</h2>
+<p><b>不配 AI 也能用全部功能</b>，只是「自动解析」和「竞争力评估」要手动填。</p>
+<p>配了之后可以偷懒：</p>
+<ul>
+<li>上传简历 → 自动提取院校、实习、技能</li>
+<li>粘贴 JD → 自动识别公司、岗位、城市、截止日期，一键加入投递表</li>
+<li>粘贴面经 → 自动整理成结构化面试记录</li>
+<li>自动算拿 offer 可能性</li>
+</ul>
+
+<h3>怎么配</h3>
+<div class="step"><div class="num">1</div><div class="txt">点左侧 <b>🤖 AI</b></div></div>
+<div class="step"><div class="num">2</div><div class="txt">选一个预设（推荐 <b>DeepSeek</b> 或 <b>Kimi</b>，便宜好用）</div></div>
+<div class="step"><div class="num">3</div><div class="txt">去对应官网申请 API Key，粘贴进去</div></div>
+<div class="step"><div class="num">4</div><div class="txt">点「测试连接」，绿色就 OK</div></div>
+
+<div class="highlight">🔒 <b>隐私</b>：你的 Key 只存在这台电脑的浏览器里，不会上传。AI 请求直接从你浏览器发到服务商，没有中间人。</div>
+
+<div class="warn">⚠️ 如果测试连接报 CORS 错误，换<b>硅基流动</b>或<b>智谱</b>试试，这两家支持最好。</div>
+
+<hr class="divider">
+
+<h2>💾 数据会丢吗</h2>
+<p><b>会。</b>因为数据存在浏览器里，清浏览器缓存 = 数据全没。</p>
+
+<p><b>解决办法</b>：定期点左侧 <b>☁️ 同步备份</b>：</p>
+
+<table>
+<tr><th>操作</th><th>干嘛的</th></tr>
+<tr><td><b>导出 JSON</b></td><td>下载一个备份文件，存在 U 盘 / 网盘</td></tr>
+<tr><td><b>生成同步码</b></td><td>复制一段文字，粘到另一台电脑的同页面里恢复</td></tr>
+</table>
+
+<p>建议每周导一次，或者每次重要更新后导一次。</p>
+
+<hr class="divider">
+
+<h2>两个 HTML 文件有什么区别</h2>
+
+<table>
+<tr><th>文件</th><th>数据</th><th>用途</th></tr>
+<tr><td><b>index.html</b></td><td><b>空的</b>，0 条记录</td><td>分享给别人、部署到网站</td></tr>
+<tr><td><b>秋招工作台.html</b></td><td>含你的真实数据</td><td>你自己本地用</td></tr>
+</table>
+
+<div class="highlight">📤 <b>给别人用就发 <code>index.html</code></b>，里面没有任何个人信息。</div>
+
+<hr class="divider">
+
+<h2>⚠️ 已知限制</h2>
+<ul>
+<li>扫描件 PDF（图片型）无法提取文字，需手动粘贴</li>
+<li><code>.doc</code> 旧格式不支持，另存为 <code>.docx</code></li>
+<li>AI 评估仅供参考，模型可能编造细节，请自行判断</li>
+<li>多设备不实时同步，靠手动备份搬运</li>
+</ul>
+
+<div class="footer">
+<p>秋招工作台 · MIT License · 开源项目</p>
+</div>
+
+</div>
+</body>
+</html>
