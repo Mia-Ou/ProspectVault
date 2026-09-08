@@ -556,7 +556,7 @@ footer{max-width:1280px;margin:0 auto;padding:0 18px 26px;color:var(--tx3);font-
 </head>
 <body>
 
-<script id="seed-data" type="application/json">{"metadata":{"version":"2.0.84","builtAt":"2026-09-08T16:13:09+08:00","created":"2026-09-02","dataGen":"gen8-20260909-fix-report-structure","description":"ProspectVault 在线空壳版(为隐私不含数据, 请导入同步码/备份)","mode":"shell","seedCount":0},"records":[],"resume":null,"deletedIds":[],"discoveredJobs":[]}</script>
+<script id="seed-data" type="application/json">{"metadata":{"version":"2.0.87","builtAt":"2026-09-08T22:20:51+08:00","created":"2026-09-02","dataGen":"gen8-20260909-fix-report-structure","description":"ProspectVault 在线空壳版(为隐私不含数据, 请导入同步码/备份)","mode":"shell","seedCount":0},"records":[],"resume":null,"deletedIds":[],"discoveredJobs":[]}</script>
 
 <aside class="sidebar">
   <div class="sb-brand">
@@ -661,6 +661,8 @@ footer{max-width:1280px;margin:0 auto;padding:0 18px 26px;color:var(--tx3);font-
 /* ================= 常量 ================= */
 const LS_KEY='qf_workbench_v2';
 const STATUSES=['未投递','网申中','简历筛选','笔试','面试','Offer','已拒'];
+const FUNNEL_STAGES=['投递','笔试','一面','二面','三面/终面','Offer'];
+const FUNNEL_COLORS={'投递':'#2563eb','笔试':'#5447d8','一面':'#7c3aed','二面':'#a855f7','三面/终面':'#d97706','Offer':'#0e9f6e','拒':'#e11d48'};
 const PRI=['高','中','低'];
 const STATUS_COLOR={'未投递':'#64748b','网申中':'#1d6fd6','简历筛选':'#5447d8','笔试':'#7c3aed','面试':'#d97706','Offer':'#0e9f6e','已拒':'#e11d48'};
 const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
@@ -940,6 +942,89 @@ function foot(){const P=flattenPos();const ps=P.length;const n=DATA.records.leng
 function isActiveP(x){return x.pos.applied&&x.pos.status!=='已拒'&&x.pos.status!=='Offer'}
 function inPipelineP(x){return x.pos.status!=='未投递'}
 
+/* ========== 投递漏斗（7 阶段） ========== */
+function computeFunnel(){
+  const P=flattenPos();
+  const R=DATA.records;
+  // 阶段 1: 投递 — pos.status !== '未投递'
+  const 投递=P.filter(x=>inPipelineP(x)).length;
+  // 阶段 2: 笔试 — pos.status 在 {'笔试'} 或 pos.status 是 '面试' 且同 record 有 round 含'笔试'的 interviewStage
+  const 笔试=P.filter(x=>{
+    if(x.pos.status==='笔试')return true;
+    if(x.pos.status==='未投递'||x.pos.status==='已拒')return false;
+    const ivs=x.rec.interviewStages||[];
+    return ivs.some(s=>/笔试|笔试/.test(s.round||''));
+  }).length;
+  // 阶段 3-5: 一面/二面/三面 — 从 interviewStages round 推断面试轮次，取 record 级最高轮次
+  const recMaxRound={};
+  R.forEach(r=>{
+    const ivs=r.interviewStages||[];
+    let max=0;
+    ivs.forEach(s=>{
+      const rn=s.round||'';
+      if(/一面|一轮|初面|初试|初筛/.test(rn))max=Math.max(max,1);
+      else if(/二面|二轮|复面|复试/.test(rn))max=Math.max(max,2);
+      else if(/三面|三轮|终面|终面|终轮|HR.?面|合伙人面/.test(rn))max=Math.max(max,3);
+    });
+    recMaxRound[r.id]=max;
+  });
+  // 把 record 级最高轮次映射到该 record 下所有岗位
+  // 阶段 3: 一面 — record 最高轮次 >= 1 且 投递了 的岗位
+  const 一面=P.filter(x=>inPipelineP(x)&&x.pos.status!=='已拒'&&(recMaxRound[x.rec.id]>=1||x.pos.status==='面试')).length;
+  // 阶段 4: 二面 — record 最高轮次 >= 2
+  const 二面=P.filter(x=>inPipelineP(x)&&x.pos.status!=='已拒'&&recMaxRound[x.rec.id]>=2).length;
+  // 阶段 5: 三面/终面 — record 最高轮次 >= 3
+  const 三面=P.filter(x=>inPipelineP(x)&&x.pos.status!=='已拒'&&recMaxRound[x.rec.id]>=3).length;
+  // 阶段 6: Offer
+  const Offer=P.filter(x=>x.pos.status==='Offer').length;
+  // 被拒总数（贯穿全流程，单独列示）
+  const 拒=P.filter(x=>x.pos.status==='已拒').length;
+  return {'投递':投递,'笔试':笔试,'一面':一面,'二面':二面,'三面/终面':三面,'Offer':Offer,'拒':拒};
+}
+
+function funnelSVG(data){
+  const stages=FUNNEL_STAGES;
+  const values=stages.map(s=>data[s]||0);
+  const rejCount=data['拒']||0;
+  const max=Math.max(...values,1);
+  const W=480,H=260,PAD_L=90,PAD_R=70,PAD_T=15,rowH=36;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px">`;
+  // 绘制梯形漏斗
+  stages.forEach((s,i)=>{
+    const v=values[i];
+    const ratio=v/max;
+    const nextRatio=i<stages.length-1?(values[i+1]/max):ratio*0.6;
+    const y=PAD_T+i*rowH;
+    const cx=W/2+10;
+    // 当前行宽度
+    const w1=Math.max(20,ratio*(W-PAD_L-PAD_R-20));
+    const w2=Math.max(10,nextRatio*(W-PAD_L-PAD_R-20));
+    const x1=cx-w1/2, x2=cx+w1/2;
+    const x3=cx+w2/2, x4=cx-w2/2;
+    const pts=`${x1},${y} ${x2},${y} ${x3},${y+rowH-3} ${x4},${y+rowH-3}`;
+    const color=FUNNEL_COLORS[s];
+    svg+=`<polygon points="${pts}" fill="${color}" opacity="0.88"/>`;
+    // 标签（左侧）
+    svg+=`<text x="${PAD_L-10}" y="${y+rowH/2+4}" text-anchor="end" font-size="12" fill="#334155">${s}</text>`;
+    // 数值（右侧）
+    svg+=`<text x="${PAD_L+w1+12}" y="${y+rowH/2+4}" font-size="12" font-weight="700" fill="#334155">${v}</text>`;
+    // 转化率（中间）
+    if(i>0&&values[i-1]>0){
+      const rate=Math.round(v/values[i-1]*100);
+      svg+=`<text x="${cx}" y="${y+rowH/2+4}" text-anchor="middle" font-size="10" fill="#fff" opacity="0.9">${rate}%</text>`;
+    }else if(v>0){
+      svg+=`<text x="${cx}" y="${y+rowH/2+4}" text-anchor="middle" font-size="10" fill="#fff" opacity="0.9">${v}</text>`;
+    }
+  });
+  // 被拒单独显示在底部
+  const rejY=PAD_T+stages.length*rowH+6;
+  if(rejCount>0){
+    svg+=`<text x="${W/2}" y="${rejY}" text-anchor="middle" font-size="11" fill="#e11d48">已拒 ${rejCount}</text>`;
+  }
+  svg+=`</svg>`;
+  return svg;
+}
+
 /* ================= 概览 ================= */
 function renderDash(){
   const P=flattenPos();
@@ -956,11 +1041,7 @@ function renderDash(){
   // 7天内到期 / 已过期（未进终态）—— 岗位级
   const dueP=P.filter(x=>x.pos.deadline&&x.pos.status!=='Offer'&&x.pos.status!=='已拒'&&daysUntil(x.pos.deadline)<=7)
     .sort((a,b)=>daysUntil(a.pos.deadline)-daysUntil(b.pos.deadline));
-  const funnel=[
-    {k:'总岗位',v:total,c:'#94a3b8'},{k:'已投递',v:applied,c:'#2563eb'},{k:'流程中',v:active,c:'#7c3aed'},
-    {k:'进入面试',v:ivCount,c:'#d97706'},{k:'Offer',v:offer,c:'#0e9f6e'}
-  ];
-  const max=Math.max(total,1);
+  const funnelData = computeFunnel();
   const dist=STATUSES.map(s=>({s,n:P.filter(x=>x.pos.status===s).length})).filter(x=>x.n>0);
   const distMax=Math.max(...dist.map(x=>x.n),1);
   const recent=R.filter(r=>r.updatedAt).sort((a,b)=>+new Date(b.updatedAt)-+new Date(a.updatedAt)).slice(0,6);
@@ -1027,8 +1108,8 @@ function renderDash(){
 
   html+=`<div class="dash-grid">
     <div class="card panel"><h3>\u{26a0}\ufe0f \u5f85\u5904\u7406\u9884\u8b66 ${alertSummary}</h3>${alerts}</div>
-    <div class="card panel"><h3>\u{1f4ca} \u6295\u9012\u6f0f\u6597</h3>
-      <div class="funnel">${funnel.map(f=>`<div class="fn-row"><div class="fn-label">${f.k}</div><div class="fn-track"><div class="fn-fill" style="width:${Math.max(4,Math.round(f.v/max*100))}%;background:${f.c}"></div></div><div class="fn-num">${f.v}</div></div>`).join('')}</div>
+    <div class="card panel"><h3>\u{1f4ca} \u6295\u9012\u6f0f\u6597\uff087 \u9636\u6bb5\uff09</h3>
+      <div style="padding:8px 4px">${funnelSVG(funnelData)}</div>
     </div>
   </div>`;
   // 状态分布（岗位数）
