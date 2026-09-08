@@ -425,6 +425,49 @@ footer{max-width:1280px;margin:0 auto;padding:0 18px 26px;color:var(--tx3);font-
 .r-radar-row .val.risk-mid{color:#f59e0b}
 .r-radar-row .val.risk-low{color:#ef4444}
 
+/* ---------- 月度预算可视化（以到手月薪为 100% 基准） ---------- */
+.r-budget{margin:10px 0 2px;padding:12px;background:#f8fafc;border:1px solid #e8edf3;border-radius:10px}
+.rb-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.rb-kpi{background:#fff;border:1px solid #e8edf3;border-radius:8px;padding:8px 6px;text-align:center}
+.rb-kpi-l{font-size:10px;color:#64748b;font-weight:600;letter-spacing:.3px}
+.rb-kpi-v{font-size:17px;font-weight:800;color:#0f172a;margin:2px 0 1px;font-variant-numeric:tabular-nums}
+.rb-kpi-s{font-size:10px;color:#94a3b8;line-height:1.3}
+.rb-kpi.k-net .rb-kpi-v{color:#2563eb}
+.rb-kpi.k-sur .rb-kpi-v{color:#059669}
+.rb-kpi.k-sur.neg .rb-kpi-v{color:#dc2626}
+.rb-bar-wrap{position:relative;margin:16px 0 4px}
+.rb-bar{display:flex;height:26px;border-radius:6px;overflow:hidden;background:#eef2f7}
+.rb-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;overflow:hidden;white-space:nowrap;min-width:2px;transition:width .3s}
+.rb-seg.hatch{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 4px,transparent 4px 8px)}
+.rb-netline{position:absolute;top:-3px;bottom:-3px;width:2px;background:#0f172a;border-radius:1px;z-index:2}
+.rb-netline::after{content:'\5230\624b';position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:9px;color:#0f172a;font-weight:700;white-space:nowrap}
+.rb-scale{display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-bottom:10px}
+.rb-list{display:flex;flex-direction:column;gap:5px}
+.rb-row{display:flex;align-items:center;gap:8px;font-size:11px}
+.rb-ic{width:16px;text-align:center;font-size:12px;flex-shrink:0}
+.rb-nm{width:74px;color:#475569;font-weight:600;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rb-trk{flex:1;height:8px;background:#eef2f7;border-radius:4px;overflow:hidden}
+.rb-trk i{display:block;height:100%;border-radius:4px}
+.rb-am{width:58px;text-align:right;font-variant-numeric:tabular-nums;color:#334155;font-weight:600}
+.rb-pc{width:40px;text-align:right;color:#94a3b8;font-variant-numeric:tabular-nums}
+.rb-row.is-sur .rb-nm,.rb-row.is-sur .rb-am{color:#059669;font-weight:700}
+.rb-row.is-over .rb-nm,.rb-row.is-over .rb-am{color:#dc2626;font-weight:700}
+.rb-foot{margin-top:10px;padding-top:8px;border-top:1px dashed #dde5ee;font-size:11px;color:#64748b;line-height:1.65}
+.rb-foot b{color:#0f172a}
+.rb-warn{margin-top:8px;padding:6px 9px;border-radius:6px;background:#fef2f2;color:#b91c1c;font-size:11px;font-weight:600;line-height:1.5}
+.rb-ok{margin-top:8px;padding:6px 9px;border-radius:6px;background:#ecfdf5;color:#047857;font-size:11px;font-weight:600;line-height:1.5}
+
+/* ---------- 薪资圆环图 ---------- */
+.r-donut-wrap{display:flex;flex-direction:column;align-items:center;padding:20px 0 8px}
+.r-donut-svg{margin-bottom:16px}
+.r-donut-legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-bottom:12px}
+.r-donut-legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#475569}
+.r-donut-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.r-donut-label{color:#64748b;min-width:48px}
+.r-donut-pct{font-weight:700;color:#334155;min-width:36px;text-align:right}
+.r-donut-val{color:#94a3b8;font-size:11px}
+.r-donut-summary{font-size:13px;text-align:center;padding-top:10px;border-top:1px solid #e2e8f0;margin-top:4px}
+
 /* ---------- 岗位发现页 ---------- */
 .discover-tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:8px}
 .discover-tab{padding:6px 14px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:1px solid transparent;transition:all .15s}
@@ -511,7 +554,7 @@ footer{max-width:1280px;margin:0 auto;padding:0 18px 26px;color:var(--tx3);font-
 </head>
 <body>
 
-<script id="seed-data" type="application/json">{"metadata":{"version":"2.0.68","builtAt":"2026-09-08T11:08:54+08:00","created":"2026-09-02","dataGen":"gen4-2026-09-02b","description":"秋招工作台在线空壳版(为隐私不含数据, 请导入同步码/备份)","mode":"shell","seedCount":0},"records":[],"resume":null,"deletedIds":[],"discoveredJobs":[]}</script>
+<script id="seed-data" type="application/json">{"metadata":{"version":"2.0.82","builtAt":"2026-09-08T15:23:06+08:00","created":"2026-09-02","dataGen":"gen8-20260909-fix-report-structure","description":"秋招工作台在线空壳版(为隐私不含数据, 请导入同步码/备份)","mode":"shell","seedCount":0},"records":[],"resume":null,"deletedIds":[],"discoveredJobs":[]}</script>
 
 <aside class="sidebar">
   <div class="sb-brand">
@@ -2096,15 +2139,41 @@ function onboardingHTML(){
 }
 /* 示例数据（虚构，仅用于演示） */
 function sampleData(){
-  const mk=(co,ind,loc,pos,st,mt)=>({id:uid(),company:co,industry:ind,link:'',position:pos.title,location:loc,
+  // 虚构的月度预算（口径与 build_budget.py 一致：年净储蓄 = 月盈余×12 + 到手×(发薪月数−12)）
+  const SAMPLE_SPLIT=[['\u9910\u996e',.55],['\u4ea4\u901a\u901a\u52e4',.12],['\u901a\u8baf\u7f51\u7edc',.05],['\u793e\u4ea4\u5a31\u4e50',.18],['\u65e5\u5e38\u8d2d\u7269',.10]];
+  function sampleBudget(city,gross,months,net,rent,living){
+    const ex=[{name:'\u623f\u79df\uff08\u5408\u79df\uff09',amount:rent,kind:'fixed'}];
+    let acc=0;
+    SAMPLE_SPLIT.forEach((s,i)=>{
+      const a=(i===SAMPLE_SPLIT.length-1)?(living-acc):Math.round(living*s[1]/100)*100;
+      acc+=a; ex.push({name:s[0],amount:a,kind:'living'});
+    });
+    const tot=ex.reduce((s,e)=>s+e.amount,0), sur=net-tot;
+    return {city:city,grossMonthly:gross,months:months,deductionRate:Math.round((1-net/gross)*1000)/1000,
+      netMonthly:net,welfareAnnual:0,expenses:ex,totalExpense:tot,surplus:sur,
+      annualSurplus:sur*12+net*Math.max(0,months-12),
+      surplusRate:Math.round(sur/net*1000)/10,expenseRate:Math.round(tot/net*1000)/10,livingEstimated:true};
+  }
+  function sampleComp(city,gross,months,net,rent,living){
+    const b=sampleBudget(city,gross,months,net,rent,living);
+    const S='\u793a\u4f8b\u6570\u636e\uff08\u865a\u6784\uff09';
+    return {
+      '\u85aa\u8d44\u7ed3\u6784':{text:'\u793a\u4f8b\uff1a\u7a0e\u524d '+gross.toLocaleString()+' \u5143/\u6708\u00d7'+months+'\u85aa\uff0c\u4e94\u9669\u4e00\u91d1\u3002\uff08\u4e3a\u5c55\u793a\u754c\u9762\u6548\u679c\u7f16\u9020\uff09',src:S},
+      '\u6708\u5ea6\u9884\u7b97':{text:'\u4ee5'+city+'\u4e3a\u57fa\u51c6\uff1a\u5230\u624b\u6708\u85aa '+net.toLocaleString()+' \u5143 \u2212 \u6708\u652f\u51fa '+tot(b)+' \u5143 = \u6708\u76c8\u4f59 '+b.surplus.toLocaleString()+' \u5143\uff08\u5360\u5230\u624b '+Math.round(b.surplusRate)+'%\uff09\u3002',src:S,budget:b},
+      '\u6027\u4ef7\u6bd4':{text:'\u793a\u4f8b\u6570\u636e\uff0c\u4ec5\u7528\u4e8e\u5c55\u793a\u3002\u771f\u5b9e\u6570\u636e\u8bf7\u5728\u300c\u516c\u53f8\u7814\u7a76\u300d\u91cc\u586b\u5199\u6216\u8ba9 AI \u751f\u6210\u3002',src:S},
+      '\u8f6c\u6b63\u7387':{text:'\u793a\u4f8b\u6570\u636e\uff0c\u4ec5\u7528\u4e8e\u5c55\u793a\u3002',src:S}
+    };
+  }
+  function tot(b){return b.totalExpense.toLocaleString();}
+  const mk=(co,ind,loc,pos,st,mt,comp)=>({id:uid(),company:co,industry:ind,link:'',position:pos.title,location:loc,
     positions:[Object.assign({pid:uid(),location:loc,priority:'中',status:st,applied:st!=='未投递',deadline:'',applyDate:''},pos)],
-    research:{},interviewStages:[],personalNotes:'',priority:'中',status:st,applied:st!=='未投递',updatedAt:nowISO()});
+    research:comp?{report:{compensation:comp}}:{},interviewStages:[],personalNotes:'',priority:'中',status:st,applied:st!=='未投递',updatedAt:nowISO()});
   return {
     records:[
-      mk('示例·星河创投','PEVC','上海',{title:'投资分析师（硬科技）',dept:'投资部',salary:'面议',edu:'硕士',match:82},'面试',82),
-      mk('示例·长江产业基金','PEVC','杭州',{title:'投资岗',dept:'股权投资部',salary:'面议',edu:'硕士',match:68},'简历筛选',68),
-      mk('示例·华兴证券','券商','深圳',{title:'研究所助理研究员',dept:'研究所',salary:'面议',edu:'硕士',match:55},'网申中',55),
-      mk('示例·国盛金控','银行','北京',{title:'管培生',dept:'总部',salary:'面议',edu:'本科及以上',match:42},'未投递',42)
+      mk('示例·星河创投','PEVC','上海',{title:'投资分析师（硬科技）',dept:'投资部',salary:'面议',edu:'硕士',match:82},'面试',82,sampleComp('上海',13000,13,10200,4000,2200)),
+      mk('示例·长江产业基金','PEVC','杭州',{title:'投资岗',dept:'股权投资部',salary:'面议',edu:'硕士',match:68},'简历筛选',68,sampleComp('杭州',15000,14,11800,3200,2000)),
+      mk('示例·华兴证券','券商','深圳',{title:'研究所助理研究员',dept:'研究所',salary:'面议',edu:'硕士',match:55},'网申中',55,sampleComp('深圳',12000,12,9500,4200,2400)),
+      mk('示例·国盛金控','银行','北京',{title:'管培生',dept:'总部',salary:'面议',edu:'本科及以上',match:42},'未投递',42,sampleComp('北京',11000,13,8600,4500,2200))
     ],
     resume:{headline:'示例画像：金融硕士 · 2段投资实习 · 目标硬科技股权投资',
       summary:'这是一份<b>虚构的示例数据</b>，仅用于展示界面效果。你可以在「📄 简历」里替换成自己的真实信息。',
@@ -2291,8 +2360,12 @@ document.addEventListener('click',e=>{
   else if(cmd==='delPos')delPosDlg(id,pos);
   else if(cmd==='add')openAddPos();
   else if(cmd==='addToTable')addToTable(el.dataset.company);
+  else if(cmd==='saveDiscover')saveDiscover(el.dataset.company);
+  else if(cmd==='deleteDiscover')deleteDiscover(el.dataset.company);
+  else if(cmd==='restoreDiscover')restoreDiscover(el.dataset.company);
   else if(cmd==='viewJD')window.open(el.dataset.url,'_blank');
   else if(cmd==='refreshDiscover')refreshDiscover();
+  else if(cmd==='discTab'){window._discTab=el.dataset.tab;renderDiscoverPage();}
   else if(cmd==='next')nextPos(id,pos);
   else if(cmd==='prev')prevPos(id,pos);
   else if(cmd==='del')delRec(id);
@@ -2800,77 +2873,256 @@ function reportSec(r){
     return '<div class="r-card-item"><div class="fi">'+esc(name)+'</div><div class="fc">'+bodyHTML+'</div></div>';
   }
   
-  // 净收入瀑布图渲染
-  function waterfallHTML(obj){
+    // 净收入圆环图渲染（替换瀑布图）
+  function donutHTML(obj){
     if(!obj) return '';
     var text = (typeof obj === 'string') ? obj : obj.text;
     if(!text) return '';
-    // Parse the net income calculation text
-    // Expected format: "月薪X → 五险一金-Y → 个税-Z → 到手W → 房租-A → 水电网-B → 通勤餐饮-C → 剩余约D元/月 ✅/⚠️/❌ 说明"
-    var match = text.match(/月薪([\d,]+)|底薪([\d,]+)/);
-    if(!match) return '';
-    var gross = parseInt((match[1]||match[2]).replace(/,/g,''));
     
-    // Extract deductions
-    var insureMatch = text.match(/五险一金[-]([\d,]+)/);
-    var taxMatch = text.match(/个税[-]([\d,]+)/);
-    var netMatch = text.match(/到手([\d,]+)/);
-    var rentMatch = text.match(/房租[-]([\d,]+)/);
-    var billsMatch = text.match(/水电网[-]([\d,]+)/);
-    var foodMatch = text.match(/通勤餐饮[-]([\d,]+)|餐饮[-]([\d,]+)/);
-    var remainMatch = text.match(/剩余约[-]?([\d,]+)元|剩余约[-]([\d,]+)元/);
+  // Parse actual monthly salary (not annualized): "月薪Xk" or "Xk×Y薪"
+  // Priority: extract base monthly salary directly
+  var gross;
+  var months = 12; // default
+  
+  // Try "月薪Xk" or "底薪Xk" first
+  var monthlyMatch = text.match(/(?:月薪|底薪)([\d,]+)k/);
+  if(monthlyMatch){
+    gross = parseInt(monthlyMatch[1].replace(/,/g,'')) * 1000;
+  } else {
+    // Try "Xk×Y薪" pattern
+    var salaryMultMatch = text.match(/([\d,]+)k\s*×\s*(\d+)\s*薪/);
+    if(salaryMultMatch){
+      gross = parseInt(salaryMultMatch[1].replace(/,/g,'')) * 1000;
+    }
+  }
+  
+  // Extract payment months (Y薪)
+  var monthsMatch = text.match(/×\s*(\d+)\s*薪/);
+  if(monthsMatch){
+    months = parseInt(monthsMatch[1]);
+  }
+  
+  if(!gross || gross < 1000) return '';
     
-    var insure = insureMatch ? parseInt(insureMatch[1].replace(/,/g,'')) : 0;
-    var tax = taxMatch ? parseInt(taxMatch[1].replace(/,/g,'')) : 0;
-    var net = netMatch ? parseInt(netMatch[1].replace(/,/g,'')) : 0;
-    var rent = rentMatch ? parseInt(rentMatch[1].replace(/,/g,'')) : 0;
-    var bills = billsMatch ? parseInt(billsMatch[1].replace(/,/g,'')) : 0;
-    var food = foodMatch ? parseInt((foodMatch[1]||foodMatch[2]).replace(/,/g,'')) : 0;
-    var remain = remainMatch ? parseInt((remainMatch[1]||remainMatch[2]).replace(/,/g,'')) : 0;
+    // Parse deductions from text
+    // 社保公积金+个税 (combined or separate)
+    var comboMatch = text.match(/扣除[^\d]*(\d+)%[^\d]*净到手约([\d,.]+)万|扣除[^\d]*约(\d+)%[^\d]*净到手约([\d,.]+)万|扣除[^\d]*约(\d+)%[^\d]*净到手约([\d,.]+)/);
+    var deductionRate = 0;
+    var netMonthly = 0;
+    if(comboMatch){
+      deductionRate = parseInt(comboMatch[1]||comboMatch[3]||comboMatch[5]||'0');
+      netMonthly = Math.round(gross * (1 - deductionRate/100));
+    } else {
+      // Fallback: try "净到手约X万/年" or "净到手约Xk/月"
+      var netOnly = text.match(/净到手约([\d,.]+)万/);
+      if(netOnly){
+        var netAnnual = parseFloat(netOnly[1]) * 10000;
+        netMonthly = Math.round(netAnnual / months);
+      }
+    }
+    if(!netMonthly){
+      var netOnly2 = text.match(/净到手约([\d,]+)k/);
+      if(netOnly2) netMonthly = parseInt(netOnly2[1].replace(/,/g,'')) * 1000;
+    }
+    if(!netMonthly) netMonthly = Math.round(gross * (1 - deductionRate/100));
+    var deductionMonthly = gross - netMonthly;
     
-    // Calculate bar segments (as percentages of gross)
+    // Parse rent: "租房（合租）：Xk/月" or "租房：Xk/月"
+    var rentMatch = text.match(/租房[（(]?合租?[）)]?[：:]\s*([\d,.]+)k|房租[（(]?合租?[）)]?[：:]\s*([\d,.]+)k|租房[：:]\s*([\d,.]+)k/);
+    var rent = rentMatch ? Math.round(parseFloat(rentMatch[1]||rentMatch[2]||rentMatch[3]) * 1000) : Math.round(gross * 0.25);
+    
+    // Parse living expenses: "生活费：Xk/月" or "生活费（餐饮/交通/娱乐）：Xk/月"
+    var livingMatch = text.match(/生活费[（(]?[^\d]*[）)]?[：:]\s*([\d,.]+)k|生活费[：:]\s*([\d,.]+)k/);
+    var living = livingMatch ? Math.round(parseFloat(livingMatch[1]||livingMatch[2]) * 1000) : Math.round(gross * 0.2);
+    
+  // Parse net savings: "**净储蓄**：18.9-7.2-4.8=6.9万/年" or "净储蓄：X万/年"
+  // Handle calculation format: look for result after '='
+  var saveMatch = text.match(/\*{0,2}净储蓄\*{0,2}[：:][^\n]*?=\s*([\d,.]+)\s*万/);
+  if(!saveMatch) saveMatch = text.match(/\*{0,2}净储蓄\*{0,2}[：:]\s*([\d,.]+)\s*万/);
+  var saveAnnual = saveMatch ? parseFloat(saveMatch[1]) * 10000 : 0;
+  if(!saveAnnual){
+    var saveMatch2 = text.match(/\*{0,2}净储蓄\*{0,2}[：:][^\n]*?=\s*([\d,]+)\s*k/);
+    if(!saveMatch2) saveMatch2 = text.match(/\*{0,2}净储蓄\*{0,2}[：:]\s*([\d,]+)\s*k/);
+    saveAnnual = saveMatch2 ? parseInt(saveMatch2[1].replace(/,/g,'')) * 1000 : 0;
+  }
+    var saveMonthly = saveAnnual ? Math.round(saveAnnual / months) : Math.max(0, netMonthly - rent - living);
+    
+    // Build segments: 到手(after deduction) = rent + living + saving
+    // The donut shows: 扣除(deduction) | 租房(rent) | 生活费(living) | 净储蓄(saving)
     var total = gross;
-    var pGross = 100;
-    var pInsure = Math.round(insure/total*100);
-    var pTax = Math.round(tax/total*100);
-    var pRent = Math.round(rent/total*100);
-    var pBills = Math.round(bills/total*100);
-    var pFood = Math.round(food/total*100);
-    var pNet = Math.max(4, 100 - pInsure - pTax - pRent - pBills - pFood);
+    var pDeduction = Math.round(deductionMonthly / total * 100);
+    var pRent = Math.round(rent / total * 100);
+    var pLiving = Math.round(living / total * 100);
+    var pSave = Math.round(saveMonthly / total * 100);
+    var pOther = 100 - pDeduction - pRent - pLiving - pSave;
+    if(pOther < 0){ // normalize
+      var sum = pDeduction + pRent + pLiving + pSave;
+      pDeduction = Math.round(pDeduction / sum * 100);
+      pRent = Math.round(pRent / sum * 100);
+      pLiving = Math.round(pLiving / sum * 100);
+      pSave = 100 - pDeduction - pRent - pLiving;
+    }
     
-    // Determine emoji for remaining amount
-    var emoji = remain > 5000 ? '\u2705\u2705' : remain > 3000 ? '\u2705' : remain > 1000 ? '\u26a0\ufe0f' : '\u274c';
-    var remainColor = remain > 5000 ? '#10b981' : remain > 3000 ? '#10b981' : remain > 1000 ? '#f59e0b' : '#ef4444';
+    // Colors
+    var colors = {
+      deduction: '#94a3b8',  // slate (社保个税)
+      rent: '#ef4444',       // red (租房)
+      living: '#f97316',     // orange (生活费)
+      saving: '#10b981'      // green (净储蓄)
+    };
     
-    // Extract summary text after the remaining amount
-    var summaryMatch = text.match(/元\/月\s*(.*)/);
-    var summary = summaryMatch ? summaryMatch[1] : '';
+    // Determine emoji & color for saving
+    var savePct = Math.round(saveMonthly / gross * 100);
+    var emoji = savePct >= 30 ? '\u2705\u2705' : savePct >= 20 ? '\u2705' : savePct >= 10 ? '\u26a0\ufe0f' : '\u274c';
+    var saveColor = savePct >= 20 ? '#10b981' : savePct >= 10 ? '#f59e0b' : '#ef4444';
     
-    var h = '<div class="r-waterfall">';
-    h += '<div class="r-wf-title">\u{1f4ca} \u51c0\u6536\u5165\u6d41\u6c34\u7ebf\uff08\u6708\u5ea6\uff09</div>';
-    h += '<div class="r-wf-bar">';
-    h += '<div class="r-wf-seg wf-gross" style="width:'+pGross+'%" title="\u5e94\u53d1 '+gross.toLocaleString()+'">'+gross.toLocaleString()+'</div>';
+    // Build SVG donut chart
+    var cx = 90, cy = 90, r = 72, innerR = 48;
+    var circumference = 2 * Math.PI * r;
+    var segments = [
+      { label: '\u793e\u4fdd\u4e2a\u7a0e', value: deductionMonthly, pct: pDeduction, color: colors.deduction },
+      { label: '\u79df\u623f', value: rent, pct: pRent, color: colors.rent },
+      { label: '\u751f\u6d3b\u8d39', value: living, pct: pLiving, color: colors.living },
+      { label: '\u51c0\u50a8\u84c4', value: saveMonthly, pct: pSave, color: colors.saving }
+    ];
+    
+    // Compute stroke-dasharray for each segment
+    var dashArrays = [];
+    var offset = 0;
+    segments.forEach(function(seg){
+      var len = Math.max(0.5, seg.pct / 100 * circumference);
+      var gap = circumference - len;
+      dashArrays.push({ seg: seg, dash: len + ' ' + gap, offset: -offset });
+      offset += len;
+    });
+    
+    var h = '<div class="r-donut-wrap">';
+    // SVG donut
+    h += '<div class="r-donut-svg">';
+    h += '<svg viewBox="0 0 180 180" width="180" height="180">';
+    // Background ring
+    h += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#e2e8f0" stroke-width="'+(r-innerR)+'"/>';
+    // Segments
+    dashArrays.forEach(function(da){
+      h += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+da.seg.color+'" stroke-width="'+(r-innerR)+'" stroke-dasharray="'+da.dash+'" stroke-dashoffset="'+da.offset+'" transform="rotate(-90 '+cx+' '+cy+')" />';
+    });
+    // Center text: net savings
+    h += '<text x="'+cx+'" y="'+(cy-8)+'" text-anchor="middle" font-size="11" fill="#64748b">\u51c0\u50a8\u84c4</text>';
+    h += '<text x="'+cx+'" y="'+(cy+10)+'" text-anchor="middle" font-size="16" font-weight="700" fill="'+saveColor+'">'+saveMonthly.toLocaleString()+'</text>';
+    h += '<text x="'+cx+'" y="'+(cy+24)+'" text-anchor="middle" font-size="10" fill="#94a3b8">\u5143/\u6708</text>';
+    h += '</svg>';
     h += '</div>';
-    h += '<div class="r-wf-bar">';
-    if(pInsure>2) h += '<div class="r-wf-seg wf-insure" style="width:'+pInsure+'%" title="\u4e94\u9669\u4e00\u91d1 '+insure.toLocaleString()+'">-'+insure.toLocaleString()+'</div>';
-    if(pTax>1) h += '<div class="r-wf-seg wf-tax" style="width:'+pTax+'%" title="\u4e2a\u7a0e '+tax.toLocaleString()+'">-'+tax.toLocaleString()+'</div>';
-    h += '<div class="r-wf-seg wf-net" style="width:'+(100-pInsure-pTax)+'%" title="\u5230\u624b '+net.toLocaleString()+'">'+net.toLocaleString()+'</div>';
+    
+    // Legend below
+    h += '<div class="r-donut-legend">';
+    segments.forEach(function(seg){
+      h += '<div class="r-donut-legend-item">';
+      h += '<span class="r-donut-dot" style="background:'+seg.color+'"></span>';
+      h += '<span class="r-donut-label">'+seg.label+'</span>';
+      h += '<span class="r-donut-pct">'+seg.pct+'%</span>';
+      h += '<span class="r-donut-val">'+seg.value.toLocaleString()+'\u5143</span>';
+      h += '</div>';
+    });
     h += '</div>';
-    h += '<div class="r-wf-bar">';
-    if(pRent>2) h += '<div class="r-wf-seg wf-rent" style="width:'+pRent+'%" title="\u623f\u79df '+rent.toLocaleString()+'">-'+rent.toLocaleString()+'</div>';
-    if(pBills>1) h += '<div class="r-wf-seg wf-bills" style="width:'+pBills+'%" title="\u6c34\u7535\u7f51 '+bills.toLocaleString()+'">-'+bills.toLocaleString()+'</div>';
-    if(pFood>2) h += '<div class="r-wf-seg wf-food" style="width:'+pFood+'%" title="\u901a\u52e4\u9910\u996e '+food.toLocaleString()+'">-'+food.toLocaleString()+'</div>';
+    
+    // Summary line
+    h += '<div class="r-donut-summary" style="color:'+saveColor+'">'+emoji+' \u6708\u85aa <b>'+Math.round(gross).toLocaleString()+'</b> \u2192 \u5230\u624b <b>'+netMonthly.toLocaleString()+'</b> \u2192 \u51c0\u50a8\u84c4 <b>'+saveMonthly.toLocaleString()+'</b> \u5143/\u6708\uff08\u5360\u6bd4'+savePct+'%\uff09</div>';
     h += '</div>';
-    h += '<div class="r-wf-legend">';
-    h += '<span><span class="dot" style="background:#3b82f6"></span>\u5e94\u53d1</span>';
-    h += '<span><span class="dot" style="background:#f59e0b"></span>\u4e94\u9669\u4e00\u91d1</span>';
-    h += '<span><span class="dot" style="background:#a855f7"></span>\u4e2a\u7a0e</span>';
-    h += '<span><span class="dot" style="background:#ef4444"></span>\u623f\u79df</span>';
-    h += '<span><span class="dot" style="background:#64748b"></span>\u6c34\u7535\u7f51</span>';
-    h += '<span><span class="dot" style="background:#f97316"></span>\u901a\u52e4\u9910\u996e</span>';
-    h += '</div>';
-    h += '<div class="r-wf-result" style="color:'+remainColor+'">'+emoji+' \u5269\u4f59\u7ea6 <span class="r-wf-amount" style="color:'+remainColor+'">'+remain.toLocaleString()+'</span> \u5143/\u6708 '+summary+'</div>';
-    h += '</div>';
+    return h;
+  }
+
+  // 月度预算可视化：以「到手月薪」为 100% 基准拆解各项支出（金额 + 占比）
+  function budgetHTML(obj){
+    if(!obj) return '';
+    var b=obj.budget; if(!b) return '';
+    var list=(b.expenses||[]).slice();
+    var exp=0; for(var i=0;i<list.length;i++) exp+=(list[i].amount||0);
+    var net=b.netMonthly||0;
+    var sur=(typeof b.surplus==='number')?b.surplus:(net-exp);
+    var over=sur<0;
+    var base=(over?exp:net)||1;
+
+    function metaOf(name){
+      var c='#94a3b8', ic='\u2022';
+      if(name.indexOf('\u623f\u79df')>=0||name.indexOf('\u623f')>=0){c='#ef4444';ic='\u{1f3e0}';}
+      else if(name.indexOf('\u9910\u996e')>=0){c='#f97316';ic='\u{1f35b}';}
+      else if(name.indexOf('\u4ea4\u901a')>=0){c='#f59e0b';ic='\u{1f687}';}
+      else if(name.indexOf('\u901a\u8baf')>=0){c='#38bdf8';ic='\u{1f4f1}';}
+      else if(name.indexOf('\u5a31\u4e50')>=0){c='#a855f7';ic='\u{1f3af}';}
+      else if(name.indexOf('\u8d2d\u7269')>=0){c='#14b8a6';ic='\u{1f6d2}';}
+      return {c:c,ic:ic};
+    }
+    function money(v){return (v<0?'-':'')+'\u00a5'+Math.abs(Math.round(v)).toLocaleString();}
+    function pctOf(v){return (v/base*100);}
+
+    var segs=[];
+    for(var j=0;j<list.length;j++){
+      segs.push({name:list[j].name,amount:list[j].amount||0,color:metaOf(list[j].name).c,cls:''});
+    }
+    if(over) segs.push({name:'\u8d85\u652f',amount:-sur,color:'#dc2626',cls:'hatch'});
+    else segs.push({name:'\u6bcf\u6708\u76c8\u4f59',amount:sur,color:'#10b981',cls:''});
+
+    var h='<div class="r-budget">';
+    // ---- 顶部三个 KPI ----
+    var annual=Math.round((b.grossMonthly||0)*(b.months||12)/1000)/10;
+    h+='<div class="rb-kpis">';
+    h+='<div class="rb-kpi"><div class="rb-kpi-l">\u7a0e\u524d\u6708\u85aa</div><div class="rb-kpi-v">'+money(b.grossMonthly||0)+'</div><div class="rb-kpi-s">\u00d7'+(b.months||12)+'\u85aa \u00b7 \u5e74\u5305 '+annual+'\u4e07</div></div>';
+    h+='<div class="rb-kpi k-net"><div class="rb-kpi-l">\u5230\u624b\u6708\u85aa</div><div class="rb-kpi-v">'+money(net)+'</div><div class="rb-kpi-s">\u5df2\u6263\u793e\u4fdd\u4e2a\u7a0e '+Math.round((b.grossMonthly||0)-net).toLocaleString()+'\uff08'+Math.round((b.deductionRate||0)*100)+'%\uff09</div></div>';
+    h+='<div class="rb-kpi k-sur'+(over?' neg':'')+'"><div class="rb-kpi-l">\u6bcf\u6708\u76c8\u4f59</div><div class="rb-kpi-v">'+money(sur)+'</div><div class="rb-kpi-s">\u5360\u5230\u624b '+(net?Math.round(sur/net*100):0)+'%</div></div>';
+    h+='</div>';
+
+    // ---- 100% 堆叠条 ----
+    h+='<div class="rb-bar-wrap"><div class="rb-bar">';
+    for(var k=0;k<segs.length;k++){
+      var s=segs[k]; var w=pctOf(s.amount); if(w<0)w=0;
+      var lbl=(w>9)?money(s.amount):'';
+      h+='<div class="rb-seg '+s.cls+'" style="width:'+w.toFixed(2)+'%;background:'+s.color+'" title="'+esc(s.name)+' '+money(s.amount)+'\uff08'+Math.round(w)+'%\uff09">'+lbl+'</div>';
+    }
+    h+='</div>';
+    if(over) h+='<div class="rb-netline" style="left:'+(net/base*100).toFixed(2)+'%"></div>';
+    h+='</div>';
+    h+='<div class="rb-scale"><span>0</span><span>\u57fa\u51c6 = \u5230\u624b '+money(net)+' / \u6708</span><span>'+money(base)+'</span></div>';
+
+    // ---- 明细列表 ----
+    h+='<div class="rb-list">';
+    for(var m=0;m<segs.length;m++){
+      var sg=segs[m]; var mt=metaOf(sg.name);
+      var isSur=sg.name.indexOf('\u76c8\u4f59')>=0, isOver=sg.name.indexOf('\u8d85\u652f')>=0;
+      var rowCls=isSur?' is-sur':(isOver?' is-over':'');
+      h+='<div class="rb-row'+rowCls+'">';
+      h+='<span class="rb-ic">'+mt.ic+'</span>';
+      h+='<span class="rb-nm">'+esc(sg.name)+'</span>';
+      h+='<span class="rb-trk"><i style="width:'+Math.min(100,pctOf(sg.amount)).toFixed(2)+'%;background:'+sg.color+'"></i></span>';
+      h+='<span class="rb-am">'+money(sg.amount)+'</span>';
+      h+='<span class="rb-pc">'+Math.round(pctOf(sg.amount))+'%</span>';
+      h+='</div>';
+    }
+    h+='</div>';
+
+    // ---- 结论 ----
+    var sr=net?Math.round(sur/net*100):0;
+    if(over){
+      h+='<div class="rb-warn">\u26a0\ufe0f \u5165\u4e0d\u6577\u51fa\uff1a\u5230\u624b '+money(net)+' \u4f4e\u4e8e\u6708\u652f\u51fa '+money(exp)+'\uff0c\u6bcf\u6708\u7f3a\u53e3 '+money(-sur)+'\uff0c\u9700\u5bb6\u5ead\u8865\u8d34\u6216\u526f\u4e1a\u652f\u6491\u3002</div>';
+    }else if(sr<10){
+      h+='<div class="rb-warn">\u26a0\ufe0f \u76c8\u4f59\u7387\u4ec5 '+sr+'%\uff08\u5efa\u8bae\u226520%\uff09\uff0c\u6297\u98ce\u9669\u80fd\u529b\u5f31\uff0c\u4e00\u65e6\u79df\u91d1\u4e0a\u6da8\u6216\u4e34\u65f6\u5f00\u652f\u5c31\u4f1a\u7d27\u5f20\u3002</div>';
+    }else if(sr>=25){
+      h+='<div class="rb-ok">\u2705 \u76c8\u4f59\u7387 '+sr+'%\uff0c\u73b0\u91d1\u6d41\u5065\u5eb7\uff1b\u623f\u79df\u5360\u5230\u624b '+Math.round((list[0]?list[0].amount:0)/net*100)+'%\uff0c\u5904\u4e8e\u53ef\u627f\u53d7\u8303\u56f4\u3002</div>';
+    }
+
+    // ---- 注释 ----
+    h+='<div class="rb-foot">';
+    if(obj.text) h+=esc(obj.text)+'<br>';
+    var bonus=Math.max(0,(b.months||12)-12);
+    var bonusTxt=bonus>0?(money(net)+'\u00d7'+bonus):'\uff08\u65e0\u5e74\u7ec8\u5956\uff09';
+    if(over){
+      h+='\u5e74\u5ea6\u53e3\u5f84\uff1a\u6708\u7f3a\u53e3 '+money(-sur)+'\u00d712 '+(bonus>0?('\u2212 \u5e74\u7ec8\u5956\u7a0e\u540e '+bonusTxt+' '):'')+'\u2192 \u5168\u5e74\u51c0\u73b0\u91d1\u6d41 <b>'+(b.annualSurplus/10000).toFixed(1)+' \u4e07</b>';
+    }else{
+      h+='\u5e74\u51c0\u50a8\u84c4 \u2248 <b>'+(b.annualSurplus/10000).toFixed(1)+' \u4e07</b> = \u6708\u76c8\u4f59 '+money(sur)+'\u00d712 + \u5e74\u7ec8\u5956\u7a0e\u540e '+bonusTxt;
+    }
+    if(b.welfareAnnual>0) h+=' + \u798f\u5229\u6298\u7b97 '+(b.welfareAnnual/10000).toFixed(1)+'\u4e07';
+    h+='\uff1b\u751f\u6d3b\u8d39\u7ec6\u9879\u4e3a\u6309'+(b.city||'\u5f53\u5730')+'\u5178\u578b\u6d88\u8d39\u7ed3\u6784\u62c6\u5206\u7684\u4f30\u7b97\u503c\uff0c\u623f\u79df\u4e0e\u603b\u989d\u6765\u81ea\u5c97\u4f4d\u85aa\u8d44\u6d4b\u7b97\u3002';
+    h+='</div>';
+    h+='</div>';
     return h;
   }
 
@@ -2885,8 +3137,17 @@ function reportSec(r){
     if(collapsible)h+='<div class="r-card-body">';
     var sources=[];
     var items=[];
+    var hasBudget=false;
     for(var i=0;i<fields.length;i++){
       var f=fields[i];var obj=data[f];if(!obj)continue;
+      // 月度预算：结构化数据 → 走专用可视化，不再当普通文本渲染
+      if(obj && obj.budget){
+        hasBudget=true;
+        var bsrc=(typeof obj.src==='string'&&obj.src)?obj.src:'\u63a8\u65ad';
+        if(sources.indexOf(bsrc)<0)sources.push(bsrc);
+        h+='<div class="r-card-item"><div class="fi">\u{1f4b8} \u6708\u5ea6\u9884\u7b97\uff08\u5230\u624b\u53e3\u5f84\uff09</div>'+budgetHTML(obj)+'</div>';
+        continue;
+      }
       var src=(typeof obj==='string')?'\u63a8\u65ad':obj.src;
       if(src&&sources.indexOf(src)<0)sources.push(src);
       items.push(itemHTML(f,obj));
@@ -2894,9 +3155,11 @@ function reportSec(r){
     if(items.length>0){
       h+='<div class="r-card-items-grid">'+items.join('')+'</div>';
     }
-    // 净收入瀑布图（仅在 compensation 卡片中渲染）
-    if(data['\u51c0\u6536\u5165\u8ba1\u7b97']){
-      h+=waterfallHTML(data['\u51c0\u6536\u5165\u8ba1\u7b97']);
+    // 该维度没有任何内容时不渲染空卡片壳
+    if(items.length===0 && !hasBudget && !data['\u51c0\u6536\u5165\u8ba1\u7b97']) return '';
+    // 无结构化预算数据时，退回旧的净收入圆环图
+    if(!data['\u6708\u5ea6\u9884\u7b97'] && data['\u51c0\u6536\u5165\u8ba1\u7b97']){
+      h+=donutHTML(data['\u51c0\u6536\u5165\u8ba1\u7b97']);
       var wfSrc=data['\u51c0\u6536\u5165\u8ba1\u7b97'].src;
       if(wfSrc&&sources.indexOf(wfSrc)<0)sources.push(wfSrc);
     }
@@ -2908,7 +3171,7 @@ function reportSec(r){
   // 决策导向顺序：决策 → 匹配度 → 薪资 → 风险 → 岗位 → 公司 → 面试 → 时间线 → 竞品
   var CARDS=[
     {k:'match_analysis',t:'\u{1f3af} \u5339\u914d\u5ea6\u5206\u6790',fs:['\u786c\u5339\u914d','\u8f6f\u5339\u914d','\u9762\u8bd5\u53ef\u884c\u6027']},
-    {k:'compensation',t:'\u{1f4b0} \u85aa\u8d44\u4e0e\u4ee3\u4ef7',fs:['\u85aa\u8d44\u7ed3\u6784','\u6027\u4ef7\u6bd4','\u8f6c\u6b63\u7387']},
+    {k:'compensation',t:'\u{1f4b0} \u85aa\u8d44\u4e0e\u4ee3\u4ef7',fs:['\u85aa\u8d44\u7ed3\u6784','\u6708\u5ea6\u9884\u7b97','\u6027\u4ef7\u6bd4','\u8f6c\u6b63\u7387']},
     {k:'risk_radar',t:'\u{26a0}\ufe0f \u98ce\u9669\u96f7\u8fbe',tp:'radar'},
     {k:'position_analysis',t:'\u{1f4bc} \u5c97\u4f4d\u6df1\u5ea6\u62c6\u89e3',fs:['\u771f\u5b9e\u5de5\u4f5c\u5185\u5bb9','\u80fd\u529b\u6210\u957f','\u8df3\u69fd\u8def\u5f84','JD\u8981\u6c42\u9010\u6761\u5bf9\u7167'],collapsible:true},
     {k:'company_profile',t:'\u{1f3e2} \u516c\u53f8\u753b\u50cf',fs:['\u5b9a\u6027','\u4e1a\u52a1\u6a21\u5f0f','\u884c\u4e1a\u5730\u4f4d','\u878d\u8d44/\u80a1\u4e1c'],collapsible:true},

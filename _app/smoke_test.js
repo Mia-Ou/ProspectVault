@@ -45,7 +45,7 @@ setTimeout(() => {
   assert('boot 无 JS 致命错误', errors.length === 0, errors.slice(0, 3).join(' | ') || 'clean');
 
   // 2. 视图粒度：无独立面试 tab，面试研究已并入公司研究
-  const tabs = [...d.querySelectorAll('.tab')].map(t => t.dataset.tab);
+  const tabs = [...d.querySelectorAll('.sb-tab')].map(t => t.dataset.tab);
   assert('无独立面试 tab（面试研究已并入公司研究）', tabs.indexOf('interview') === -1, JSON.stringify(tabs));
   ['dash', 'table', 'board', 'research'].forEach(t =>
     assert('存在 tab: ' + t, tabs.indexOf(t) !== -1));
@@ -64,7 +64,7 @@ setTimeout(() => {
   else skip('看板卡片数', '空壳版无种子数据');
 
   // 5. 公司研究 = 公司级（一司一卡）
-  const rsTab = d.querySelector('.tab[data-tab="research"]');
+  const rsTab = d.querySelector('.sb-tab[data-tab="research"]');
   if (rsTab) rsTab.click();
   const picks = [...d.querySelectorAll('.r-pick')];
   const coNames = picks.map(p => p.querySelector('.co') ? p.querySelector('.co').textContent.trim() : '');
@@ -81,7 +81,7 @@ setTimeout(() => {
 
   // 7. 交互：点行打开编辑弹窗
   const before = errors.length;
-  const tTab = d.querySelector('.tab[data-tab="table"]');
+  const tTab = d.querySelector('.sb-tab[data-tab="table"]');
   if (tTab) tTab.click();
   // 空数据时会渲染「暂无数据」占位行，只挑真正的数据行
   const firstRow = [...d.querySelectorAll('#tableWrap tbody tr')].find(tr => tr.querySelector('.co'));

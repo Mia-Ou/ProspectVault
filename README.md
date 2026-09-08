@@ -186,13 +186,19 @@ python _app/server.py
 # 构建（需要先填 jobs.json，或留空产空白工作台）
 python _app/build.py
 
+# 从「净收入计算」文本生成结构化月度预算（薪资卡片可视化的数据源）
+python _app/build_budget.py                 # → jobs.json（个人数据）
+python _app/build_budget.py jobs.example.json  # → 开源示例数据
+
 # 跑测试
 npm i jsdom
 node _app/smoke_test.js index.html
 node _app/oss_test.js
+node _app/budget_test.js
 ```
 
 - 源码在 `_app/template.html`，改完跑 `build.py` 重新构建
+- 改了数据结构，记得同步两处示例：`jobs.example.json` 和 `template.html` 里的 `sampleData()`（公开版「载入示例数据」用的是后者）
 - 数据格式见 `jobs.example.json`
 - 欢迎提 Issue 和 PR，详见 [CONTRIBUTING.md](CONTRIBUTING.md)
 

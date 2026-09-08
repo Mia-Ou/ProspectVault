@@ -144,6 +144,16 @@ setTimeout(() => {
   ok('示例数据含虚构公司', sd.records.length === 4 && sd.records.every(r => r.company.indexOf('示例·') === 0));
   ok('示例数据公司名全部带「示例·」前缀（不含任何真实公司）', sd.records.every(r => r.company.indexOf('示例·') === 0));
   ok('示例含简历画像', !!sd.resume && sd.resume.headline.includes('示例'));
+  // 示例数据须与个人数据同构：含结构化月度预算（到手口径）
+  const withB = sd.records.filter(r => {
+    const c = ((r.research || {}).report || {}).compensation || {};
+    return c['月度预算'] && c['月度预算'].budget;
+  });
+  ok('示例数据含结构化月度预算', withB.length === sd.records.length, withB.length + '/' + sd.records.length);
+  const b0 = withB.length ? withB[0].research.report.compensation['月度预算'].budget : null;
+  ok('示例预算口径自洽（盈余 = 到手 − 支出）',
+    !!b0 && b0.surplus === b0.netMonthly - b0.totalExpense && b0.netMonthly < b0.grossMonthly,
+    b0 ? b0.grossMonthly + '→' + b0.netMonthly + '−' + b0.totalExpense + '=' + b0.surplus : 'NONE');
 
   /* ---------- 8. 导出安全 ---------- */
   console.log('\n[8] 隐私');
