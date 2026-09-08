@@ -18,6 +18,9 @@ APP  = os.path.join(ROOT, "_app")
 TPL  = os.path.join(APP, "template.html")
 JOBS = os.path.join(ROOT, "jobs.json")
 STATE= os.path.join(APP, "state.json")
+ASSETS = os.path.join(ROOT, "assets")
+LOGO_PNG = os.path.join(ASSETS, "logo.png")
+FAVICON = os.path.join(ASSETS, "favicon.ico")
 OUT_FULL  = os.path.join(ROOT, "秋招工作台.html")
 OUT_SHELL = os.path.join(ROOT, "webapp", "index.html")
 OUT_ROOT  = os.path.join(ROOT, "index.html")
@@ -119,8 +122,22 @@ def main():
     full_payload = {"metadata": meta_full, "records": records, "resume": resume, "deletedIds": [], "discoveredJobs": discovered_jobs}
     shell_payload = {"metadata": meta_shell, "records": [], "resume": None, "deletedIds": [], "discoveredJobs": []}
 
+    def b64_data(path, mime):
+        if not os.path.exists(path):
+            return ""
+        with open(path, "rb") as f:
+            return "data:%s;base64,%s" % (mime, __import__("base64").b64encode(f.read()).decode())
+
+    logo_data = b64_data(LOGO_PNG, "image/png")
+    favicon_data = b64_data(FAVICON, "image/x-icon")
+
     def render(payload):
-        return template.replace("__SEED_JSON__", esc_json(payload))
+        html = template.replace("__SEED_JSON__", esc_json(payload))
+        if logo_data:
+            html = html.replace("__LOGO_BASE64__", logo_data)
+        if favicon_data:
+            html = html.replace("__FAVICON_BASE64__", favicon_data)
+        return html
 
     full_html = render(full_payload)
     shell_html = render(shell_payload)

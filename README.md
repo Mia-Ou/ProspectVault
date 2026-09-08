@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/logo.png" width="128" height="128" alt="ProspectVault logo"></p>
+
 # ProspectVault · 把求职当 deal 做
 
 **一个文件管完秋招。** 投了哪些、到哪一步了、哪家有戏——全在这里。
