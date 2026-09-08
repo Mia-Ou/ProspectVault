@@ -7,7 +7,7 @@
 本仓库是公开的。以下内容**已经在 `.gitignore` 中，请勿强制提交**：
 
 - `jobs.json` / `jobs.json.bak*` —— 真实投递记录
-- `秋招工作台.html` —— 内嵌了真实数据的构建产物
+- `秋招工作台.html` —— 内嵌了真实数据的构建产物（保留文件名是避免破坏你的本地备份与测试）
 - `resume_extracted.txt` / `秋招投递跟踪表.xlsx` —— 简历原文
 - `requests/` / `responses/` —— 研究请求与结果
 

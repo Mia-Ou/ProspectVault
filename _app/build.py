@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-秋招工作台 V2 构建脚本（开源版）
+ProspectVault V2 构建脚本（开源版）
 - 输入: _app/template.html  (应用模板) + jobs.json (个人数据源, 可选, 不入 git)
 - 状态: _app/state.json     (记录每条记录的哈希与 updatedAt, 保证只把"真正改动"的记录标记为新版, 不覆盖用户本地编辑)
 - 产出:
    1) index.html            公开版(空数据, 任何人可直接双击打开 / 部署到 GitHub Pages)
    2) webapp/index.html     同上, 保留在 webapp 目录便于部署
-   3) 秋招工作台.html        个人完整版(含 jobs.json 的全部数据, 已 gitignore)
+   3) 秋招工作台.html        个人完整版(含 jobs.json 的全部数据, 已 gitignore, 文件名沿用)
 用法: python _app/build.py
 说明: 没有 jobs.json 也能构建 —— 会产出空白工作台, 数据由使用者在自己的浏览器里录入。
 """
@@ -96,7 +96,7 @@ def main():
         "builtAt": now_iso(),
         "created": jobs.get("metadata", {}).get("created", ""),
         "dataGen": jobs.get("metadata", {}).get("dataGen", ""),
-        "description": "秋招工作台本地完整版(内置种子数据)",
+        "description": "ProspectVault 本地完整版(内置种子数据)",
         "mode": "full",
         "seedCount": len(records),
     }
@@ -105,7 +105,7 @@ def main():
         "builtAt": now_iso(),
         "created": jobs.get("metadata", {}).get("created", ""),
         "dataGen": jobs.get("metadata", {}).get("dataGen", ""),
-        "description": "秋招工作台在线空壳版(为隐私不含数据, 请导入同步码/备份)",
+        "description": "ProspectVault 在线空壳版(为隐私不含数据, 请导入同步码/备份)",
         "mode": "shell",
         "seedCount": 0,
     }

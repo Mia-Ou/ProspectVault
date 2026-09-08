@@ -40,7 +40,7 @@
   // 方法1：现代 Clipboard API
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(json).then(() => {
-      showMsg('✅ 已复制 JD 到剪贴板（' + text.length + ' 字）<br>切到秋招工作台，按 Ctrl+V 粘贴');
+      showMsg('✅ 已复制 JD 到剪贴板（' + text.length + ' 字）<br>切到 ProspectVault，按 Ctrl+V 粘贴');
     }).catch(() => {
       fallbackCopy(json, text.length);
     });
@@ -56,7 +56,7 @@
     ta.select();
     try {
       document.execCommand('copy');
-      showMsg('✅ 已复制 JD 到剪贴板（' + len + ' 字）<br>切到秋招工作台，按 Ctrl+V 粘贴');
+      showMsg('✅ 已复制 JD 到剪贴板（' + len + ' 字）<br>切到 ProspectVault，按 Ctrl+V 粘贴');
     } catch (e) {
       showMsg('⚠️ 复制失败，请手动选中下方文字复制：<br><textarea style="width:100%;height:200px;margin-top:8px">' + str + '</textarea>');
     }

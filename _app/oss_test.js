@@ -28,7 +28,7 @@ setTimeout(() => {
   ok('页面脚本已执行 (boot 存在)', typeof w.boot === 'function');
   ok('种子为空（不含任何真实数据）', !getData() || getData().records.length === 0, 'records=' + (getData() ? getData().records.length : '?'));
   const dash = d.querySelector('#page-dash').innerHTML;
-  ok('空白时显示 onboarding 引导', dash.includes('欢迎使用秋招工作台'));
+  ok('空白时显示 onboarding 引导', dash.includes('欢迎使用 ProspectVault'));
   ok('引导含「上传简历」步骤', dash.includes('上传简历'));
   ok('引导含「导入招聘信息」步骤', dash.includes('导入招聘信息'));
   ok('引导含「配置 AI」步骤', dash.includes('配置 AI'));

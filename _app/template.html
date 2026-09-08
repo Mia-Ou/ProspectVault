@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>秋招工作台 · 增强版</title>
+<title>ProspectVault · 秋招投递与公司研究</title>
 <style>
 :root{
   --bg:#f2f5f9;--card:#ffffff;--line:#e2e8f0;--line2:#eef2f7;
@@ -558,7 +558,7 @@ footer{max-width:1280px;margin:0 auto;padding:0 18px 26px;color:var(--tx3);font-
 
 <aside class="sidebar">
   <div class="sb-brand">
-    <div class="brand"><span class="logo">📋</span><span>秋招工作台<small>随时更新 · 隐私本地</small></span></div>
+    <div class="brand"><span class="logo">💎</span><span>ProspectVault<small>把求职当 deal 做 · 隐私本地</small></span></div>
   </div>
   <div class="sb-nav">
     <nav class="sb-tabs" id="tabs">
@@ -636,7 +636,7 @@ footer{max-width:1280px;margin:0 auto;padding:0 18px 26px;color:var(--tx3);font-
 </main>
 
 <footer>
-  <span id="footVer">秋招工作台</span>
+  <span id="footVer">ProspectVault</span>
   <span id="footInfo"></span>
   <a data-cmd="about" style="cursor:pointer;color:var(--tx3);text-decoration:underline" title="关于 / 隐私说明 / 开源协议">关于 · 隐私</a>
 </footer>
@@ -2113,7 +2113,7 @@ function onboardingHTML(){
   const hasRec=DATA.records.length>0;
   const hasAI=aiReady();
   return `<div class="onb">
-    <h3>👋 欢迎使用秋招工作台</h3>
+    <h3>👋 欢迎使用 ProspectVault</h3>
     <div class="lead">这是一个<b>完全离线、数据只存在你自己浏览器里</b>的求职跟踪工具。三步开始：先让我认识你，再把要投的岗位收进来，剩下的交给看板和提醒。</div>
     <div class="onb-steps">
       <button class="onb-step ${hasResume?'done':''}" data-cmd="upload" data-kind="resume">
@@ -2192,7 +2192,7 @@ function loadSample(){
    ============================================================ */
 function openAbout(){
   $('#dlg-about').innerHTML=`
-  <div class="dlg-h"><h3>关于秋招工作台</h3><button class="x" data-cmd="closeAbout">✕</button></div>
+  <div class="dlg-h"><h3>关于 ProspectVault</h3><button class="x" data-cmd="closeAbout">✕</button></div>
   <div class="dlg-b">
     <div class="ai-note" style="margin-bottom:14px">
       <b>一个开源、离线、隐私优先的求职跟踪工具。</b><br>
