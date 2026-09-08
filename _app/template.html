@@ -982,47 +982,24 @@ function computeFunnel(){
   return {'投递':投递,'笔试':笔试,'一面':一面,'二面':二面,'三面/终面':三面,'Offer':Offer,'拒':拒};
 }
 
-function funnelSVG(data){
+function funnelBars(data){
   const stages=FUNNEL_STAGES;
   const values=stages.map(s=>data[s]||0);
-  const rejCount=data['拒']||0;
   const max=Math.max(...values,1);
-  const W=480,H=260,PAD_L=90,PAD_R=70,PAD_T=15,rowH=36;
-  let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px">`;
-  // 绘制梯形漏斗
+  const colors=['#2563eb','#5447d8','#7c3aed','#a855f7','#d97706','#0e9f6e','#e11d48'];
+  let html='<div class="funnel">';
   stages.forEach((s,i)=>{
     const v=values[i];
-    const ratio=v/max;
-    const nextRatio=i<stages.length-1?(values[i+1]/max):ratio*0.6;
-    const y=PAD_T+i*rowH;
-    const cx=W/2+10;
-    // 当前行宽度
-    const w1=Math.max(20,ratio*(W-PAD_L-PAD_R-20));
-    const w2=Math.max(10,nextRatio*(W-PAD_L-PAD_R-20));
-    const x1=cx-w1/2, x2=cx+w1/2;
-    const x3=cx+w2/2, x4=cx-w2/2;
-    const pts=`${x1},${y} ${x2},${y} ${x3},${y+rowH-3} ${x4},${y+rowH-3}`;
-    const color=FUNNEL_COLORS[s];
-    svg+=`<polygon points="${pts}" fill="${color}" opacity="0.88"/>`;
-    // 标签（左侧）
-    svg+=`<text x="${PAD_L-10}" y="${y+rowH/2+4}" text-anchor="end" font-size="12" fill="#334155">${s}</text>`;
-    // 数值（右侧）
-    svg+=`<text x="${PAD_L+w1+12}" y="${y+rowH/2+4}" font-size="12" font-weight="700" fill="#334155">${v}</text>`;
-    // 转化率（中间）
-    if(i>0&&values[i-1]>0){
-      const rate=Math.round(v/values[i-1]*100);
-      svg+=`<text x="${cx}" y="${y+rowH/2+4}" text-anchor="middle" font-size="10" fill="#fff" opacity="0.9">${rate}%</text>`;
-    }else if(v>0){
-      svg+=`<text x="${cx}" y="${y+rowH/2+4}" text-anchor="middle" font-size="10" fill="#fff" opacity="0.9">${v}</text>`;
-    }
+    const pct=Math.round(v/max*100);
+    html+=`<div class="fn-row"><div class="fn-label">${s}</div><div class="fn-track"><div class="fn-fill" style="width:${Math.max(2,pct)}%;background:${colors[i]}"></div></div><div class="fn-num">${v}</div></div>`;
   });
-  // 被拒单独显示在底部
-  const rejY=PAD_T+stages.length*rowH+6;
-  if(rejCount>0){
-    svg+=`<text x="${W/2}" y="${rejY}" text-anchor="middle" font-size="11" fill="#e11d48">已拒 ${rejCount}</text>`;
+  if(data['拒']>0){
+    const v=data['拒'];
+    const pct=Math.round(v/max*100);
+    html+=`<div class="fn-row"><div class="fn-label">已拒</div><div class="fn-track"><div class="fn-fill" style="width:${Math.max(2,pct)}%;background:#e11d48"></div></div><div class="fn-num">${v}</div></div>`;
   }
-  svg+=`</svg>`;
-  return svg;
+  html+='</div>';
+  return html;
 }
 
 /* ================= 概览 ================= */
@@ -1109,12 +1086,45 @@ function renderDash(){
   html+=`<div class="dash-grid">
     <div class="card panel"><h3>\u{26a0}\ufe0f \u5f85\u5904\u7406\u9884\u8b66 ${alertSummary}</h3>${alerts}</div>
     <div class="card panel"><h3>\u{1f4ca} \u6295\u9012\u6f0f\u6597\uff087 \u9636\u6bb5\uff09</h3>
-      <div style="padding:8px 4px">${funnelSVG(funnelData)}</div>
+      <div class="funnel">${funnelBars(funnelData)}</div>
     </div>
   </div>`;
-  // 状态分布（岗位数）
-  let distH=dist.map(x=>`<div class="dist-row"><div class="nm">${esc(x.s)}</div><div class="dist-track"><div class="dist-fill" style="width:${Math.round(x.n/distMax*100)}%;background:${stColor(x.s)}"></div></div><div class="nu">${x.n}</div></div>`).join('');
-  if(!distH)distH='<div style="color:var(--tx3);font-size:12px">\u6682\u65e0\u6570\u636e</div>';
+  // 已面试公司对比分析表
+  const interviewedRecords = R.filter(r => {
+    const ivs = r.interviewStages || [];
+    return ivs.length > 0;
+  });
+  let compareTableHtml = '';
+  if (interviewedRecords.length > 0) {
+    const tableRows = interviewedRecords.map(r => {
+      const ivs = r.interviewStages || [];
+      const lastStage = ivs[ivs.length - 1];
+      const roundName = lastStage ? (lastStage.round || '—') : '—';
+      const result = lastStage ? (lastStage.result || '待定') : '待定';
+      const resultColor = result === '通过' ? '#0e9f6e' : result === '淘汰' ? '#e11d48' : '#d97706';
+      return `<tr>
+        <td><b>${esc(r.company)}</b><br><span style="color:var(--tx3);font-size:12px">${esc(r.primary_position || r.position || '')}</span></td>
+        <td>${esc(r.industry || '—')}</td>
+        <td>${esc(r.location || '—')}</td>
+        <td>${esc(roundName)}</td>
+        <td><span style="color:${resultColor};font-weight:600">${esc(result)}</span></td>
+        <td>${r.priority || '—'}</td>
+      </tr>`;
+    }).join('');
+    compareTableHtml = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid var(--border);color:var(--tx3);font-size:12px">
+        <th style="text-align:left;padding:6px 8px">公司 / 岗位</th>
+        <th style="text-align:left;padding:6px 8px">行业</th>
+        <th style="text-align:left;padding:6px 8px">城市</th>
+        <th style="text-align:left;padding:6px 8px">最新轮次</th>
+        <th style="text-align:left;padding:6px 8px">结果</th>
+        <th style="text-align:left;padding:6px 8px">优先级</th>
+      </tr></thead>
+      <tbody>${tableRows}</tbody>
+    </table></div>`;
+  } else {
+    compareTableHtml = '<div style="color:var(--tx3);font-size:13px">暂无进入面试的公司</div>';
+  }
   // 近期更新
   let actH=recent.map(r=>`<div class="act-item" data-cmd="rsOpen" data-id="${esc(r.id)}" style="cursor:pointer">
     <div class="t">${relTime(r.updatedAt)}</div>
@@ -1122,7 +1132,7 @@ function renderDash(){
     <span class="chip ${cp(r.status)}">${esc(r.status)}</span></div>`).join('');
   if(!actH)actH='<div style="color:var(--tx3);font-size:12px">\u6682\u65e0\u8bb0\u5f55</div>';
   html+=`<div class="dash-grid">
-    <div class="card panel"><h3>\u5206\u5e03</h3>${distH}</div>
+    <div class="card panel"><h3>\u{1f4ca} \u5df2\u9762\u8bd5\u516c\u53f8\u5bf9\u6bd4</h3>${compareTableHtml}</div>
     <div class="card panel"><h3>\u{1f550} \u6700\u8fd1\u66f4\u65b0</h3>${actH}</div>
   </div>`;
   $('#page-dash').innerHTML=html;
@@ -2442,7 +2452,7 @@ document.addEventListener('click',e=>{
   if(cmd==='open')openPosDlg(id,pos);
   else if(cmd==='delPos')delPosDlg(id,pos);
   else if(cmd==='add')openAddPos();
-  else if(cmd==='addToTable')addToTable(el.dataset.company);
+  else if(cmd==='addToTable')addToTable(el.dataset.company, el.dataset.position);
   else if(cmd==='saveDiscover')saveDiscover(el.dataset.company);
   else if(cmd==='deleteDiscover')deleteDiscover(el.dataset.company);
   else if(cmd==='restoreDiscover')restoreDiscover(el.dataset.company);
@@ -2632,9 +2642,34 @@ function renderDiscoverPage(){
     body.innerHTML='<div class="empty"><div class="ic">🔍</div><div class="t">暂无推荐岗位</div><div class="s">点击「刷新」按钮获取最新岗位推荐</div></div>';
     return;
   }
+  // 自动过滤：已在投递表中的岗位从发现列表隐藏
+  // 匹配策略：公司名必须精确匹配 + 岗位名模糊匹配（包含关系）
+  const inPipeline=(j)=>{
+    const jPos=String(j.position||'').trim();
+    const jCo=String(j.company||'').trim();
+    return DATA.records.some(r=>{
+      if(String(r.company||'').trim()!==jCo)return false;
+      const positions=Array.isArray(r.positions)&&r.positions.length?r.positions:[{title:r.primary_position||r.position||''}];
+      // 精确匹配优先
+      if(positions.some(p=>String(p.title||'').trim()===jPos))return true;
+      // 模糊匹配：任一岗位名包含另一方
+      if(!jPos)return true; // 发现页岗位名为空时，只要公司匹配就算
+      return positions.some(p=>{
+        const t=String(p.title||'').trim();
+        return t&&jPos&&(t.includes(jPos)||jPos.includes(t));
+      });
+    });
+  };
+  const seenCompanies=new Set();
+  const dedupedJobs=jobs.filter(j=>{
+    const key=String(j.company).trim()+'||'+String(j.position).trim();
+    if(seenCompanies.has(key))return false;
+    seenCompanies.add(key);
+    return !inPipeline(j);
+  });
   // 分类统计
-  const activeJobs=jobs.filter(j=>!j.status||j.status==='active');
-  const savedJobs=jobs.filter(j=>j.status==='saved');
+  const activeJobs=dedupedJobs.filter(j=>!j.status||j.status==='active');
+  const savedJobs=dedupedJobs.filter(j=>j.status==='saved');
   const currentTab=window._discoverTab||'active';
   // Tab 切换
   const tabsHtml='<div class="discover-tabs">'+
@@ -2667,7 +2702,7 @@ function renderDiscoverPage(){
   });
   // 卡片
   const cardsHtml=sortedJobs.map(job=>{
-    const isAdded=DATA.records.some(r=>r.company===job.company);
+    const isAdded=inPipeline(job);
     const scoreColor=job.matchScore>=80?'#10b981':job.matchScore>=60?'#f59e0b':'#94a3b8';
     const isSaved=job.status==='saved';
     return '<div class="discover-card'+(isAdded?' added':'')+(isSaved?' saved':'')+'" data-company="'+esc(job.company)+'">'+
@@ -2688,7 +2723,7 @@ function renderDiscoverPage(){
       (job.reason?'<div class="dc-reason">'+esc(job.reason)+'</div>':'')+
       '<div class="dc-actions">'+
         (isAdded?'<button class="btn secondary" disabled>✓ 已加入</button>':
-          '<button class="btn primary" data-cmd="addToTable" data-company="'+esc(job.company)+'">➕ 加入投递表</button>')+
+          '<button class="btn primary" data-cmd="addToTable" data-company="'+esc(job.company)+'" data-position="'+esc(job.position)+'">➕ 加入投递表</button>')+
         (job.applyLink?'<button class="btn" data-cmd="viewJD" data-url="'+esc(job.applyLink)+'">🔗 查看</button>':'')+
         (isSaved?'<button class="btn" data-cmd="restoreDiscover" data-company="'+esc(job.company)+'">↩️ 恢复</button>':
           '<button class="btn" data-cmd="saveDiscover" data-company="'+esc(job.company)+'">📌 备选</button>')+
@@ -2729,13 +2764,34 @@ function filterDiscover(){
     card.style.display=(matchType&&matchScore)?'':'none';
   });
 }
-function addToTable(company){
+function addToTable(company, position){
   const jobs=DATA.discoveredJobs||[];
-  const job=jobs.find(j=>j.company===company);
+  // 按公司+岗位精确找
+  let job=jobs.find(j=>j.company===company&&String(j.position||'').trim()===String(position||'').trim());
+  if(!job) job=jobs.find(j=>j.company===company);
   if(!job)return;
-  // 检查是否已存在
-  if(DATA.records.some(r=>r.company===company)){
-    toast('该公司已在投递表中');
+  // 去重检查：公司+岗位模糊匹配
+  const jPos=String(job.position||'').trim();
+  const jCo=String(job.company||'').trim();
+  const exists=DATA.records.some(r=>{
+    if(String(r.company||'').trim()!==jCo)return false;
+    const positions=Array.isArray(r.positions)&&r.positions.length?r.positions:[{title:r.primary_position||r.position||''}];
+    if(!jPos)return true;
+    return positions.some(p=>{
+      const t=String(p.title||'').trim();
+      return t&&jPos&&(t===jPos||t.includes(jPos)||jPos.includes(t));
+    });
+  });
+  if(exists){
+    toast('该岗位已在投递表中');
+    // 从发现列表移除（清理已加入的）
+    DATA.discoveredJobs=jobs.filter(j=>{
+      if(String(j.company).trim()!==jCo)return true;
+      const t=String(j.position||'').trim();
+      return t&&jPos&&!(t===jPos||t.includes(jPos)||jPos.includes(t));
+    });
+    persist();
+    renderAll();
     return;
   }
   // 创建新记录
@@ -2762,9 +2818,15 @@ function addToTable(company){
     }]
   });
   DATA.records.push(rec);
+  // 从发现列表移除已加入的岗位
+  DATA.discoveredJobs=jobs.filter(j=>{
+    if(String(j.company).trim()!==jCo)return true;
+    const t=String(j.position||'').trim();
+    return t&&jPos&&!(t===jPos||t.includes(jPos)||jPos.includes(t));
+  });
   persist();
   renderAll();
-  toast('已加入投递表：'+company);
+  toast('已加入投递表：'+job.company);
 }
 function viewJD(url){
   window.open(url,'_blank');
