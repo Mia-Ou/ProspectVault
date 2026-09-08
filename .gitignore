@@ -18,12 +18,13 @@ responses/
 # 作者个人的数据处理脚本：内嵌真实公司名/个人背景/手机号/HR 邮箱，不随开源仓库分发
 _app/add_competition.py
 _app/gen_reports.py
+_app/gen_reports.js
 _app/gen_reports_v*.js
 _app/merge_and_research.py
 _app/migration_test.js
 _app/gen_sync.py
+_app/daily_refresh.py
 _app/daily_refresh_*.py
-!_app/daily_refresh.py
 
 # 作者个人的 UI 设计参考素材（从第三方网站抓取，与本项目无关）
 _app/download_ref.py
